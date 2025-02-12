@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
-  title: "AI Notes",
+  title: "Notes.ai",
   description: "A simple note-taking app powered by AI",
 };
 

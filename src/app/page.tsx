@@ -1,8 +1,10 @@
-import { ModeToggle } from "@/components/mode-toggle";
+import Header from "@/components/Header";
+import { ModeToggle } from "@/components/ModeToggle";
 
 export default function HomePage() {
   return (
-    <div className="flex items-center justify-center p-4">
+    <div>
+      <Header />
       Hello World
       <ModeToggle />
     </div>
