@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/utils/supabase/server";
 import { CheckCircle, Sparkles, Zap } from "lucide-react";
 import Link from "next/link";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = await createClient();
+
+  const { data } = await supabase.auth.getUser();
+
   return (
     <main>
       <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
@@ -19,11 +24,10 @@ export default function HomePage() {
               </p>
             </div>
             <div className="space-x-4">
-              <Link href="/login">
-                <Button size="lg">Get Started</Button>
-              </Link>
-              <Button variant="outline" size="lg">
-                Learn More
+              <Button size="lg" asChild>
+                <Link href={data?.user ? "/dashboard" : "/login"}>
+                  Get Started
+                </Link>
               </Button>
             </div>
           </div>
