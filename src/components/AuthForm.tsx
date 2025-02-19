@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import coverPic from "../../public/cover.jpg";
 import { SubmitButton } from "./SubmitButton";
 import { Card, CardContent } from "./ui/card";
@@ -44,11 +45,24 @@ export default function AuthForm({ type }: Props) {
           >
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Welcome</h1>
+                <h1 className="text-2xl font-bold">Welcome!</h1>
                 <p className="text-balance text-muted-foreground">
-                  Login to your notes.ai account
+                  {type === "login"
+                    ? "Login to your notes.ai account"
+                    : "Sign up for a new notes.ai account"}
                 </p>
               </div>
+              {type === "signup" && (
+                <div className="grid gap-2">
+                  <Label htmlFor="fullName">Full Name</Label>
+                  <Input
+                    id="fullName"
+                    type="text"
+                    placeholder="John Doe"
+                    required
+                  />
+                </div>
+              )}
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -61,12 +75,14 @@ export default function AuthForm({ type }: Props) {
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
+                  {type === "login" && (
+                    <Link
+                      href="/forgot-password"
+                      className="ml-auto text-sm underline-offset-2 hover:underline"
+                    >
+                      Forgot your password?
+                    </Link>
+                  )}
                 </div>
                 <Input id="password" type="password" required />
               </div>
@@ -102,10 +118,27 @@ export default function AuthForm({ type }: Props) {
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
-                  Sign up
-                </a>
+                {type === "login" ? (
+                  <>
+                    Don&apos;t have an account?{" "}
+                    <Link
+                      href="/signup"
+                      className="underline underline-offset-4"
+                    >
+                      Sign up
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    Already have an account?{" "}
+                    <Link
+                      href="/login"
+                      className="underline underline-offset-4"
+                    >
+                      Login
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </form>
