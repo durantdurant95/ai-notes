@@ -7,7 +7,7 @@ import { UserDropdown } from "./UserDropdown";
 export default async function Header() {
   const user = await getUser();
   return (
-    <header className="p-4 shadow-md flex justify-between items-center">
+    <header className="p-4 flex-1 shadow-md flex justify-between items-center">
       <Link href="/" className="flex gap-1">
         <Image
           src="/logo.svg"
