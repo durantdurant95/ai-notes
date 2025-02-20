@@ -1,41 +1,37 @@
 "use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogOut, User } from "lucide-react";
 import Link from "next/link";
 
 interface UserDropdownProps {
-  user: {
-    name: string;
-    email: string;
-    avatarUrl: string;
-  };
+  name: string;
+  email?: string;
 }
 
-export function UserDropdown({ user }: UserDropdownProps) {
+export function UserDropdown({ name, email }: UserDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src={user.avatarUrl} alt={user.name} />
-          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+          <AvatarFallback>{name.charAt(0)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {user.email}
-            </p>
+            <p className="text-md font-medium leading-none">{name}</p>
+            <p className="text-xs">{email}</p>
           </div>
         </DropdownMenuLabel>
+        <DropdownMenuSeparator />
         <Link href="/profile">
           <DropdownMenuItem>
             <User />

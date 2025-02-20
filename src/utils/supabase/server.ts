@@ -27,3 +27,17 @@ export async function createClient() {
     }
   );
 }
+
+export async function getUser() {
+  const client = await createClient();
+  const {
+    data: { user },
+    error,
+  } = await client.auth.getUser();
+
+  if (error) {
+    throw new Error(`Error fetching user: ${error.message}`);
+  }
+
+  return user;
+}

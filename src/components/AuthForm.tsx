@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { login, signUp } from "@/utils/supabase/actions";
 import { Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,33 +9,33 @@ import { Card, CardContent } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 
-type Props = {
+type AuthFormProps = {
   type: "login" | "signup";
 };
 
-async function login(formData: FormData) {
-  "use server";
-  const email = formData.get("email");
-  const password = formData.get("password");
+// async function login(formData: FormData) {
+//   "use server";
+//   const email = formData.get("email");
+//   const password = formData.get("password");
 
-  // Mock login logic with delay
-  console.log("Logging in with:", { email, password });
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  console.log("Logged in successfully!");
-}
+//   // Mock login logic with delay
+//   console.log("Logging in with:", { email, password });
+//   await new Promise((resolve) => setTimeout(resolve, 1000));
+//   console.log("Logged in successfully!");
+// }
 
-async function signUp(formData: FormData) {
-  "use server";
-  const email = formData.get("email");
-  const password = formData.get("password");
+// async function signUp(formData: FormData) {
+//   "use server";
+//   const email = formData.get("email");
+//   const password = formData.get("password");
 
-  // Mock signup logic with delay
-  console.log("Signing up with:", { email, password });
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  console.log("Signed up successfully!");
-}
+//   // Mock signup logic with delay
+//   console.log("Signing up with:", { email, password });
+//   await new Promise((resolve) => setTimeout(resolve, 1000));
+//   console.log("Signed up successfully!");
+// }
 
-export default function AuthForm({ type }: Props) {
+export default function AuthForm({ type }: AuthFormProps) {
   return (
     <div className="flex flex-col gap-6 w-full max-w-sm md:max-w-3xl">
       <Card className="overflow-hidden">
@@ -54,11 +55,12 @@ export default function AuthForm({ type }: Props) {
               </div>
               {type === "signup" && (
                 <div className="grid gap-2">
-                  <Label htmlFor="fullName">Full Name</Label>
+                  <Label htmlFor="name">Name</Label>
                   <Input
-                    id="fullName"
+                    id="name"
                     type="text"
-                    placeholder="John Doe"
+                    name="name"
+                    placeholder="Your name"
                     required
                   />
                 </div>
@@ -68,6 +70,7 @@ export default function AuthForm({ type }: Props) {
                 <Input
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="m@example.com"
                   required
                 />
@@ -84,7 +87,7 @@ export default function AuthForm({ type }: Props) {
                     </Link>
                   )}
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" name="password" required />
               </div>
               <SubmitButton>
                 {type === "login" ? "Login" : "Sign up"}
