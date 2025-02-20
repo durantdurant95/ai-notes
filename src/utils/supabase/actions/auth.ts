@@ -55,13 +55,21 @@ export const signUp = async (formData: FormData) => {
 
   if (error) {
     return encodedRedirect("error", "/signup", error.message);
-  } else {
-    return encodedRedirect(
-      "success",
-      "/signup",
-      "Thanks for signing up! Please check your email for a verification link."
-    );
   }
+
+  const { error: dbError } = await supabase
+    .from("users")
+    .insert([{ email, name, id: signUpData.user?.id }]);
+
+  if (dbError) {
+    return encodedRedirect("error", "/signup", dbError.message);
+  }
+
+  return encodedRedirect(
+    "success",
+    "/signup",
+    "Thanks for signing up! Please check your email for a verification link."
+  );
 };
 
 export const signOut = async () => {
