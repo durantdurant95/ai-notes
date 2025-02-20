@@ -63,3 +63,9 @@ export const signUp = async (formData: FormData) => {
     );
   }
 };
+
+export const signOut = async () => {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  return redirect("/");
+};

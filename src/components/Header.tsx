@@ -19,10 +19,8 @@ export default async function Header() {
         <h1 className="font-bold text-primary text-lg">notes.ai</h1>
       </Link>
       <div className="flex gap-2 items-center">
-        {user ? (
+        {user && (
           <UserDropdown name={user.user_metadata.name} email={user.email} />
-        ) : (
-          <Link href="/login">Login</Link>
         )}
         <ModeToggle />
       </div>

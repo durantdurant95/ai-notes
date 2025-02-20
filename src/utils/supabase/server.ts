@@ -36,7 +36,8 @@ export async function getUser() {
   } = await client.auth.getUser();
 
   if (error) {
-    throw new Error(`Error fetching user: ${error.message}`);
+    // throw new Error(`Error fetching user: ${error.message}`);
+    console.log("error fetching user", error.message);
   }
 
   return user;

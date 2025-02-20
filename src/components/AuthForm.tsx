@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { login, signUp } from "@/utils/supabase/actions";
+import { login, signUp } from "@/utils/supabase/actions/auth";
 import { Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

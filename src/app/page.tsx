@@ -1,12 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/utils/supabase/server";
+import { getUser } from "@/utils/supabase/server";
 import { CheckCircle, Sparkles, Zap } from "lucide-react";
 import Link from "next/link";
 
 export default async function HomePage() {
-  const supabase = await createClient();
-
-  const { data } = await supabase.auth.getUser();
+  const user = await getUser();
 
   return (
     <main>
@@ -25,9 +23,7 @@ export default async function HomePage() {
             </div>
             <div className="space-x-4">
               <Button size="lg" asChild>
-                <Link href={data?.user ? "/dashboard" : "/login"}>
-                  Get Started
-                </Link>
+                <Link href={user ? "/dashboard" : "/login"}>Get Started</Link>
               </Button>
             </div>
           </div>
