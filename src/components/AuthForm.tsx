@@ -13,28 +13,6 @@ type AuthFormProps = {
   type: "login" | "signup";
 };
 
-// async function login(formData: FormData) {
-//   "use server";
-//   const email = formData.get("email");
-//   const password = formData.get("password");
-
-//   // Mock login logic with delay
-//   console.log("Logging in with:", { email, password });
-//   await new Promise((resolve) => setTimeout(resolve, 1000));
-//   console.log("Logged in successfully!");
-// }
-
-// async function signUp(formData: FormData) {
-//   "use server";
-//   const email = formData.get("email");
-//   const password = formData.get("password");
-
-//   // Mock signup logic with delay
-//   console.log("Signing up with:", { email, password });
-//   await new Promise((resolve) => setTimeout(resolve, 1000));
-//   console.log("Signed up successfully!");
-// }
-
 export default function AuthForm({ type }: AuthFormProps) {
   return (
     <div className="flex flex-col gap-6 w-full max-w-sm md:max-w-3xl">
