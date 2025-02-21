@@ -34,32 +34,6 @@ export type Database = {
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "notes_user_id_users_id_fk"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      users: {
-        Row: {
-          email: string
-          id: string
-          name: string | null
-        }
-        Insert: {
-          email: string
-          id: string
-          name?: string | null
-        }
-        Update: {
-          email?: string
-          id?: string
-          name?: string | null
-        }
         Relationships: []
       }
     }

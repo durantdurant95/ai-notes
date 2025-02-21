@@ -8,7 +8,7 @@ import { SidebarTrigger } from "./ui/sidebar";
 export default async function Header() {
   const user = await getUser();
   return (
-    <header className="p-4 flex-1 shadow-md flex justify-between items-center">
+    <header className="p-4 flex-1 border-b flex justify-between items-center">
       <div className="flex gap-2 items-center">
         <SidebarTrigger />
         <Link href="/" className="flex gap-1">

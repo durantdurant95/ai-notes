@@ -13,37 +13,23 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Tables } from "@/types/supabase";
 import { createNote } from "@/utils/supabase/actions/notes";
 
-// This is sample data. In a real app, you'd fetch this from an API or database.
-const sampleNotes = [
-  { id: 1, title: "Shopping List", excerpt: "Milk, eggs, bread..." },
-  { id: 2, title: "Meeting Notes", excerpt: "Discuss project timeline..." },
-  { id: 3, title: "Ideas for Blog", excerpt: "1. How to stay productive..." },
-  { id: 4, title: "Books to Read", excerpt: "1. The Alchemist..." },
-];
+type Props = {
+  notes: Tables<"notes">[];
+};
 
-export function AppSidebar() {
-  const [notes, setNotes] = React.useState(sampleNotes);
-  const [activeNoteId, setActiveNoteId] = React.useState<number | null>(null);
-
-  const addNewNote = () => {
-    const newNote = {
-      id: notes.length + 1,
-      title: `New Note ${notes.length + 1}`,
-      excerpt: "Click to edit...",
-    };
-    setNotes([...notes, newNote]);
-    setActiveNoteId(newNote.id);
-  };
+export function AppSidebar({ notes }: Props) {
+  const [activeNoteId, setActiveNoteId] = React.useState<string | null>(null);
 
   return (
     <Sidebar>
-      <SidebarHeader className="border-b border-border px-2 py-2">
+      <SidebarHeader className=" border-b flex justify-center h-[73px]">
         <h2 className="px-4 text-lg font-semibold tracking-tight">My Notes</h2>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarMenu>
+        <SidebarMenu className="overflow-y-auto py-3 px-1">
           {notes.map((note) => (
             <SidebarMenuItem key={note.id}>
               <SidebarMenuButton
@@ -56,7 +42,7 @@ export function AppSidebar() {
                   <div className="flex flex-col items-start">
                     <span className="font-medium">{note.title}</span>
                     <span className="text-xs text-muted-foreground">
-                      {note.excerpt}
+                      {note.content}
                     </span>
                   </div>
                 </div>
