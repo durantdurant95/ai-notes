@@ -58,7 +58,7 @@ export function AppSidebar({ notes }: Props) {
           ))}
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="border-t border-border p-4">
+      <SidebarFooter className="border-t p-4">
         <Button
           onClick={async () => {
             await createNote({
