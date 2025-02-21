@@ -13,6 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { createNote } from "@/utils/supabase/actions/notes";
 
 // This is sample data. In a real app, you'd fetch this from an API or database.
 const sampleNotes = [
@@ -65,7 +66,15 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="border-t border-border p-4">
-        <Button onClick={addNewNote} className="w-full">
+        <Button
+          onClick={async () => {
+            await createNote({
+              title: "New note title",
+              content: "this is the content of the note",
+            });
+          }}
+          className="w-full"
+        >
           <Plus />
           Add New Note
         </Button>

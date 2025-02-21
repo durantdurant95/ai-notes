@@ -21,10 +21,10 @@ export type Database = {
         Insert: {
           content?: string | null
           created_at?: string | null
-          id: string
+          id?: string
           title?: string | null
           updated_at?: string | null
-          user_id: string
+          user_id?: string
         }
         Update: {
           content?: string | null
