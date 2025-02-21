@@ -1,6 +1,6 @@
-import AppSidebar from "@/components/AppSidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 import Header from "@/components/Header";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,10 +8,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
       <AppSidebar />
       <main className="flex-1 flex-col">
         <Header />
-        <div className="p-4">
-          <SidebarTrigger />
-          {children}
-        </div>
+        <div className="h-[calc(100vh-72px)]">{children}</div>
       </main>
     </SidebarProvider>
   );
