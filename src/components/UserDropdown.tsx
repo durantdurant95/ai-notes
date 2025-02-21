@@ -11,6 +11,7 @@ import {
 import { signOut } from "@/utils/supabase/actions/auth";
 import { LogOut, User } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 interface UserDropdownProps {
   name: string;
@@ -18,6 +19,15 @@ interface UserDropdownProps {
 }
 
 export function UserDropdown({ name, email }: UserDropdownProps) {
+  const handleSignOut = async () => {
+    toast.promise(signOut, {
+      loading: "Logging you out...",
+      success: () => {
+        return "Successfully logged out!";
+      },
+      error: "Error",
+    });
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -39,7 +49,7 @@ export function UserDropdown({ name, email }: UserDropdownProps) {
             Profile
           </DropdownMenuItem>
         </Link>
-        <DropdownMenuItem onClick={signOut}>
+        <DropdownMenuItem onClick={handleSignOut}>
           <LogOut />
           Log out
         </DropdownMenuItem>

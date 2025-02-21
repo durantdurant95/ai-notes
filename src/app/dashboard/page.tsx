@@ -1,6 +1,6 @@
+import NoteForm from "@/components/NoteForm";
 import { Button } from "@/components/ui/button";
 import { getNoteById } from "@/utils/supabase/actions/notes";
-import { getUser } from "@/utils/supabase/server";
 import { Plus } from "lucide-react";
 
 type DashboardPageProps = {
@@ -11,7 +11,6 @@ export default async function DashboardPage({
   searchParams,
 }: DashboardPageProps) {
   const noteIdParam = (await searchParams).noteId;
-  const user = getUser();
   const noteId = Array.isArray(noteIdParam)
     ? noteIdParam![0]
     : noteIdParam || "";
@@ -31,5 +30,5 @@ export default async function DashboardPage({
   }
   const note = await getNoteById(noteId);
 
-  return <div>DashboardPage</div>;
+  return <NoteForm title={note.title || ""} content={note.content || ""} />;
 }

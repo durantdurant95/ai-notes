@@ -1,10 +1,11 @@
 "use server";
 
-import { encodedRedirect } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { createClient } from "../server";
+
+import { encodedRedirect } from "@/lib/utils";
+import { createClient } from "@/utils/supabase/server";
+import { headers } from "next/headers";
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -54,30 +55,17 @@ export const signUp = async (formData: FormData) => {
 
   if (error) {
     return encodedRedirect("error", "/signup", error.message);
+  } else {
+    return encodedRedirect(
+      "success",
+      "/signup",
+      "Thanks for signing up! Please check your email for a verification link."
+    );
   }
-
-  const { error: dbError } = await supabase
-    .from("users")
-    .insert([{ email, name, id: signUpData.user?.id }]);
-
-  if (dbError) {
-    return encodedRedirect("error", "/signup", dbError.message);
-  }
-
-  return encodedRedirect(
-    "success",
-    "/signup",
-    "Thanks for signing up! Please check your email for a verification link."
-  );
 };
 
 export const signOut = async () => {
   const supabase = await createClient();
-  const { error } = await supabase.auth.signOut();
-
-  if (error) {
-    redirect("/error");
-  }
-
-  redirect("/");
+  await supabase.auth.signOut();
+  return redirect("/");
 };
