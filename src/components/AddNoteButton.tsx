@@ -5,9 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
 
-type Props = {};
-
-export default function AddNoteButton({}: Props) {
+export default function AddNoteButton() {
   const router = useRouter();
   return (
     <Button
