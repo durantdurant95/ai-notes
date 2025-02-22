@@ -1,7 +1,5 @@
 "use client";
 
-import { MoreHorizontal, Plus, Trash } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -14,9 +12,11 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Tables } from "@/types/supabase";
-import { createNote } from "@/utils/supabase/actions/notes";
+import { createNote, deleteNote } from "@/utils/supabase/actions/notes";
+import { MoreHorizontal, Plus, Trash } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import {
   DropdownMenu,
@@ -31,7 +31,19 @@ type Props = {
 
 export function AppSidebar({ notes }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
   const isMobile = useSidebar();
+  const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const currentNoteId = pathname.split("/").pop();
+    setActiveNoteId(currentNoteId ?? null);
+  }, [pathname]);
+
+  const handleNoteClick = (noteId: string) => {
+    setActiveNoteId(noteId);
+    router.push(`/dashboard/${noteId}`);
+  };
 
   return (
     <Sidebar>
@@ -43,8 +55,16 @@ export function AppSidebar({ notes }: Props) {
           {notes.map((note) => (
             <DropdownMenu key={note.id}>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <Link className="w-full" href={`/dashboard/${note.id}`}>
+                <SidebarMenuButton
+                  className={`${
+                    activeNoteId === note.id ? "bg-primary/5" : ""
+                  }`}
+                  onClick={() => handleNoteClick(note.id)}
+                >
+                  <Link
+                    className="w-full overflow-hidden whitespace-nowrap text-ellipsis"
+                    href={`/dashboard/${note.id}`}
+                  >
                     {note.title}
                   </Link>
                   <DropdownMenuTrigger asChild>
@@ -56,7 +76,17 @@ export function AppSidebar({ notes }: Props) {
                   align={isMobile ? "end" : "center"}
                   className="rounded-lg"
                 >
-                  <DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() =>
+                      toast.promise(deleteNote(note.id), {
+                        loading: "Deleting note...",
+                        success: () => {
+                          return "Note Deleted!";
+                        },
+                        error: "Error",
+                      })
+                    }
+                  >
                     <Trash />
                     Delete
                   </DropdownMenuItem>

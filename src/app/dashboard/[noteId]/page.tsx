@@ -14,11 +14,5 @@ export default async function Page({
 
   const note = await getNoteById(noteId);
 
-  return (
-    <NoteForm
-      title={note.title || ""}
-      content={note.content || ""}
-      id={noteId}
-    />
-  );
+  return <NoteForm title={note.title} content={note.content} id={noteId} />;
 }

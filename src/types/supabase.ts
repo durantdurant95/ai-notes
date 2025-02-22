@@ -11,26 +11,26 @@ export type Database = {
     Tables: {
       notes: {
         Row: {
-          content: string | null
+          content: string
           created_at: string | null
           id: string
-          title: string | null
+          title: string
           updated_at: string | null
           user_id: string
         }
         Insert: {
-          content?: string | null
+          content?: string
           created_at?: string | null
           id?: string
-          title?: string | null
+          title?: string
           updated_at?: string | null
           user_id?: string
         }
         Update: {
-          content?: string | null
+          content?: string
           created_at?: string | null
           id?: string
-          title?: string | null
+          title?: string
           updated_at?: string | null
           user_id?: string
         }

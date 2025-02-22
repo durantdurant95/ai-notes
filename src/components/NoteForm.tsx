@@ -16,14 +16,6 @@ export default function NoteForm({ id, title, content }: Props) {
   const [noteTitle, setNoteTitle] = useState(title);
   const [noteContent, setNoteContent] = useState(content);
 
-  const handleSave = async () => {
-    await updateNote({
-      id,
-      title: noteTitle,
-      content: noteContent,
-    });
-  };
-
   return (
     <div className="flex flex-col h-full p-4 space-y-4">
       <div className="flex items-center space-x-2">
