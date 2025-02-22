@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Tables } from "@/types/supabase";
 import { createNote } from "@/utils/supabase/actions/notes";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
@@ -42,11 +43,14 @@ export function AppSidebar({ notes }: Props) {
           {notes.map((note) => (
             <DropdownMenu key={note.id}>
               <SidebarMenuItem>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton>
-                    {note.title} <MoreHorizontal className="ml-auto" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
+                <SidebarMenuButton>
+                  <Link className="w-full" href={`/dashboard/${note.id}`}>
+                    {note.title}
+                  </Link>
+                  <DropdownMenuTrigger asChild>
+                    <MoreHorizontal className="ml-auto" />
+                  </DropdownMenuTrigger>
+                </SidebarMenuButton>
                 <DropdownMenuContent
                   side={isMobile ? "bottom" : "top"}
                   align={isMobile ? "end" : "center"}

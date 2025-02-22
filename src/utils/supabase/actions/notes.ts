@@ -1,5 +1,6 @@
 "use server";
 import { Tables, TablesInsert } from "@/types/supabase";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "../server";
 
@@ -25,7 +26,8 @@ export const getAllNotesByUserId = async (
   const { data, error } = await supabase
     .from("notes")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .order("updated_at", { ascending: false });
 
   if (error) {
     throw new Error(error.message);
@@ -69,7 +71,7 @@ export const updateNote = async (
   if (!data || data.length !== 1) {
     throw new Error("No rows returned or multiple rows returned");
   }
-
+  revalidatePath(`/dashboard/${note.id}`);
   return data[0] as Tables<"notes">;
 };
 
