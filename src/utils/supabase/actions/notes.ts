@@ -1,6 +1,5 @@
 "use server";
 import { Tables, TablesInsert } from "@/types/supabase";
-import { revalidatePath } from "next/cache";
 import { createClient } from "../server";
 
 export const getNoteById = async (noteId: string): Promise<Tables<"notes">> => {
@@ -47,7 +46,6 @@ export const createNote = async (
   if (error) {
     throw new Error(error.message);
   }
-
-  revalidatePath("/");
+  // redirect(`/dashboard/${data.id}`);
   return data as Tables<"notes">;
 };

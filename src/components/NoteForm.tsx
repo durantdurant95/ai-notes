@@ -4,5 +4,10 @@ type Props = {
 };
 
 export default function NoteForm({ title, content }: Props) {
-  return <div>NoteForm</div>;
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{content}</p>
+    </div>
+  );
 }

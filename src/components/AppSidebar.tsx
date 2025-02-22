@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/sidebar";
 import { Tables } from "@/types/supabase";
 import { createNote } from "@/utils/supabase/actions/notes";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,7 +29,9 @@ type Props = {
 };
 
 export function AppSidebar({ notes }: Props) {
+  const router = useRouter();
   const isMobile = useSidebar();
+
   return (
     <Sidebar>
       <SidebarHeader className=" border-b flex justify-center h-[73px]">
@@ -60,13 +64,24 @@ export function AppSidebar({ notes }: Props) {
       </SidebarContent>
       <SidebarFooter className="border-t p-4">
         <Button
-          onClick={async () => {
-            await createNote({
-              title: "New note title",
-              content: "this is the content of the note",
-            });
-          }}
           className="w-full"
+          onClick={() =>
+            toast.promise(
+              createNote({
+                title: "New note",
+                content: "",
+              }).then((note) => {
+                router.push(`/dashboard/${note.id}`);
+              }),
+              {
+                loading: "Creating note...",
+                success: () => {
+                  return "Created note successfully!";
+                },
+                error: "Error",
+              }
+            )
+          }
         >
           <Plus />
           Add New Note
