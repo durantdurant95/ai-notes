@@ -1,10 +1,6 @@
 import NoteForm from "@/components/NoteForm";
 import { getNoteById } from "@/utils/supabase/actions/notes";
 
-type DashboardPageProps = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
 export default async function Page({
   params,
 }: {
