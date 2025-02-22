@@ -42,7 +42,7 @@ export const signUp = async (formData: FormData) => {
     );
   }
 
-  const { data: signUpData, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
