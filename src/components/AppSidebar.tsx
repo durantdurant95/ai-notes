@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -12,12 +11,13 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Tables } from "@/types/supabase";
-import { createNote, deleteNote } from "@/utils/supabase/actions/notes";
-import { MoreHorizontal, Plus, Trash } from "lucide-react";
+import { deleteNote } from "@/utils/supabase/actions/notes";
+import { MoreHorizontal, Trash } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import AddNoteButton from "./AddNoteButton";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -97,29 +97,7 @@ export function AppSidebar({ notes }: Props) {
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="border-t p-4">
-        <Button
-          className="w-full"
-          onClick={() =>
-            toast.promise(
-              createNote({
-                title: "New note",
-                content: "",
-              }).then((note) => {
-                router.push(`/dashboard/${note.id}`);
-              }),
-              {
-                loading: "Creating note...",
-                success: () => {
-                  return "Created note successfully!";
-                },
-                error: "Error",
-              }
-            )
-          }
-        >
-          <Plus />
-          Add New Note
-        </Button>
+        <AddNoteButton />
       </SidebarFooter>
     </Sidebar>
   );

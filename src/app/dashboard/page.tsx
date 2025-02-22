@@ -1,7 +1,6 @@
+import AddNoteButton from "@/components/AddNoteButton";
 import NoteForm from "@/components/NoteForm";
-import { Button } from "@/components/ui/button";
 import { getNoteById } from "@/utils/supabase/actions/notes";
-import { Plus } from "lucide-react";
 
 type DashboardPageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -21,10 +20,7 @@ export default async function DashboardPage({
         <h1 className="font-bold text-xl">
           Start by creating a new note or selecting an existing one
         </h1>
-        <Button>
-          <Plus />
-          Create New Note
-        </Button>
+        <AddNoteButton />
       </div>
     );
   }
