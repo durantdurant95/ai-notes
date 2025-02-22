@@ -30,5 +30,11 @@ export default async function DashboardPage({
   }
   const note = await getNoteById(noteId);
 
-  return <NoteForm title={note.title || ""} content={note.content || ""} />;
+  return (
+    <NoteForm
+      title={note.title || ""}
+      content={note.content || ""}
+      id={noteId}
+    />
+  );
 }
